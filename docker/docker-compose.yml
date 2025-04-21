@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - mongo-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  mongo-cli:
+    image: mongo:6.0
+    container_name: mongo-cli
+    entrypoint: ["mongosh", "--host", "mongodb", "--username", "admin", "--password", "secret", "--authenticationDatabase", "admin"]
+    networks:
+      - mongo-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    profiles:
+      - cli
+
+volumes:
+  mongodb_data:
+    name: mongodb_data
+
+networks:
+  mongo-network:
+    driver: bridge
