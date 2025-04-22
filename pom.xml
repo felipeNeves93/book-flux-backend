@@ -51,19 +51,6 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
-		<!-- Flyway (caso use banco relacional em algum módulo futuro) -->
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency>
-
-		<!-- Banco em memória para testes -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
 		<!-- Google Books API client (se for usar diretamente essa versão) -->
 		<dependency>
 			<groupId>com.google.apis</groupId>
