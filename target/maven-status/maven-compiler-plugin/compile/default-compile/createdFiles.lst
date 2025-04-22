@@ -1,0 +1,12 @@
+com\bookflux\config\RestTemplateConfig.class
+com\bookflux\repository\collection\BookCollection$BookCollectionBuilder.class
+com\bookflux\aplication\service\BookCollectionApiService.class
+com\bookflux\dto\GoogleBooksResponseDto.class
+com\bookflux\enums\MaturityRating.class
+com\bookflux\aplication\service\BookCollectionApiServiceImpl.class
+com\bookflux\BookFluxApplication.class
+com\bookflux\dto\ImagelinksDto.class
+com\bookflux\repository\BookRepository.class
+com\bookflux\repository\collection\BookCollection.class
+com\bookflux\adapter\in\rest\BookController.class
+com\bookflux\aplication\mapper\BookMapper.class
