@@ -50,7 +50,6 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
-
 		<!-- Google Books API client (se for usar diretamente essa versão) -->
 		<dependency>
 			<groupId>com.google.apis</groupId>
