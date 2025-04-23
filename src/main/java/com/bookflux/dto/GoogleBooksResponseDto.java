@@ -6,20 +6,23 @@ import lombok.*;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GoogleBooksResponseDto {
     private List<Item> items;
 
-    @Data
+    @Getter
+    @Setter
     @NoArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Item {
         private VolumeInfo volumeInfo;
     }
 
-    @Data
+    @Getter
+    @Setter
     @NoArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class VolumeInfo {

@@ -15,17 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
 
     private final BookCollectionApiService bookCollectionApiService;
-    private final BookMapper mapper;
 
-    public BookController(BookCollectionApiService bookCollectionApiService, BookMapper mapper) {
+    public BookController(BookCollectionApiService bookCollectionApiService) {
         this.bookCollectionApiService = bookCollectionApiService;
-        this.mapper = mapper;
     }
 
     @GetMapping
-    public ResponseEntity<BookCollection> searchBook(@RequestParam String query){
+    public ResponseEntity<BookCollection> searchBook(@RequestParam String query) {
         GoogleBooksResponseDto response = bookCollectionApiService.searchBook(query);
-        return ResponseEntity.ok(mapper.toDomain(response));
-
+        BookCollection book = BookMapper.toDomain(response);
+        return ResponseEntity.ok(book);
     }
 }

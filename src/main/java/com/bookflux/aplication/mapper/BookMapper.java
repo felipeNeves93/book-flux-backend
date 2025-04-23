@@ -5,17 +5,15 @@ import com.bookflux.dto.GoogleBooksResponseDto;
 import com.bookflux.dto.ImagelinksDto;
 import com.bookflux.enums.MaturityRating;
 import com.bookflux.repository.collection.BookCollection;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 
-@Component
-public class BookMapper {
+public final class BookMapper {
 
-    public BookCollection toDomain(GoogleBooksResponseDto responseDto) {
+    public static BookCollection toDomain(GoogleBooksResponseDto responseDto) {
         if (responseDto == null || responseDto.getItems() == null || responseDto.getItems().isEmpty()) {
             return BookCollection.builder()
-                    .title("Livro não encontrado")
+                    .title("Book not found")
                     .authors(Collections.emptyList())
                     .build();
         }
@@ -38,14 +36,14 @@ public class BookMapper {
                 .build();
     }
 
-    private ImagelinksDto mapImageLinks(GoogleBooksResponseDto.VolumeInfo info) {
+    private static ImagelinksDto mapImageLinks(GoogleBooksResponseDto.VolumeInfo info) {
         if (info.getImageLinks() instanceof ImagelinksDto dto) {
             return dto;
         }
         return null;
     }
 
-    private MaturityRating convertMaturity(String value) {
+    private static MaturityRating convertMaturity(String value) {
         try {
             return MaturityRating.valueOf(value.toUpperCase());
         } catch (Exception e) {
