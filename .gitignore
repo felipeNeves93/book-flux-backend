@@ -1,54 +1,64 @@
-# =========================================
+# ==============================
 # Java
-# =========================================
+# ==============================
 *.class
 *.jar
 *.war
 *.ear
 
-# Compilação Maven
+# Maven build output
 /target/
-!/src/main/resources/static/
-/out/
+!/src/main/resources/static/  # allow static resources if needed
 
-# Compilação Gradle (caso use)
+# Gradle build output (if used)
 .gradle/
 build/
 
-# =========================================
-# IDEs - IntelliJ IDEA, Eclipse, VSCode
-# =========================================
+# ==============================
+# IDEs and Editors
+# ==============================
+
+# IntelliJ IDEA
 .idea/
 *.iml
 *.ipr
 *.iws
+
+# VS Code
 .vscode/
+
+# Eclipse
 .classpath
 .project
 .settings/
 
-# =========================================
-# Sistema operacional
-# =========================================
+# ==============================
+# OS-generated files
+# ==============================
 .DS_Store
 Thumbs.db
 ehthumbs.db
 Icon?
 desktop.ini
 
-# =========================================
-# Arquivos temporários
-# =========================================
+# ==============================
+# Temporary files
+# ==============================
 *.log
 *.tmp
-*.swp
 *.bak
+*.swp
 *.old
 *.orig
 
-# =========================================
-# Testes e relatórios
-# =========================================
+# ==============================
+# Compiler cache/status
+# ==============================
+target/maven-status/
+
+# ==============================
+# Test reports and coverage
+# ==============================
 test-output/
 surefire-reports/
 jacoco.exec
@@ -56,28 +66,31 @@ jacoco.exec
 *.lcov
 *.hprof
 
-# =========================================
-# Arquivos gerados por ferramentas do Spring
-# =========================================
-.springBeans
-.mvn/
+# ==============================
+# Spring Boot and app-specific
+# ==============================
+spring.log
+*.pid
+.rebel.xml
 logs/
-pidfile
-hs_err_pid*
-rebel.xml
+.mvn/
 
-# =========================================
-# Arquivos de banco de dados locais (caso existam)
-# =========================================
+# ==============================
+# Local environment files
+# ==============================
+.env
+.env.*
+*.local
+
+# ==============================
+# Database files (local testing)
+# ==============================
 *.h2.db
 *.mv.db
 *.sqlite
 
-# =========================================
-# Arquivos de build Docker/CI (caso use)
-# =========================================
+# ==============================
+# Docker & CI/CD (optional)
+# ==============================
 docker-compose.override.yml
-.env
-.env.local
-.env.*.local
 .docker/
