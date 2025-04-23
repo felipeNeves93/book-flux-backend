@@ -1,4 +1,83 @@
+# =========================================
+# Java
+# =========================================
+*.class
+*.jar
+*.war
+*.ear
+
+# Compilação Maven
+/target/
+!/src/main/resources/static/
+/out/
+
+# Compilação Gradle (caso use)
+.gradle/
+build/
+
+# =========================================
+# IDEs - IntelliJ IDEA, Eclipse, VSCode
+# =========================================
 .idea/
 *.iml
-*.iws
 *.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+
+# =========================================
+# Sistema operacional
+# =========================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
+
+# =========================================
+# Arquivos temporários
+# =========================================
+*.log
+*.tmp
+*.swp
+*.bak
+*.old
+*.orig
+
+# =========================================
+# Testes e relatórios
+# =========================================
+test-output/
+surefire-reports/
+jacoco.exec
+*.coverage
+*.lcov
+*.hprof
+
+# =========================================
+# Arquivos gerados por ferramentas do Spring
+# =========================================
+.springBeans
+.mvn/
+logs/
+pidfile
+hs_err_pid*
+rebel.xml
+
+# =========================================
+# Arquivos de banco de dados locais (caso existam)
+# =========================================
+*.h2.db
+*.mv.db
+*.sqlite
+
+# =========================================
+# Arquivos de build Docker/CI (caso use)
+# =========================================
+docker-compose.override.yml
+.env
+.env.local
+.env.*.local
+.docker/
