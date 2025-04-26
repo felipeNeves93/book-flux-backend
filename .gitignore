@@ -1,0 +1,96 @@
+# ==============================
+# Java
+# ==============================
+*.class
+*.jar
+*.war
+*.ear
+
+# Maven build output
+/target/
+!/src/main/resources/static/  # allow static resources if needed
+
+# Gradle build output (if used)
+.gradle/
+build/
+
+# ==============================
+# IDEs and Editors
+# ==============================
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# ==============================
+# OS-generated files
+# ==============================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
+
+# ==============================
+# Temporary files
+# ==============================
+*.log
+*.tmp
+*.bak
+*.swp
+*.old
+*.orig
+
+# ==============================
+# Compiler cache/status
+# ==============================
+target/maven-status/
+
+# ==============================
+# Test reports and coverage
+# ==============================
+test-output/
+surefire-reports/
+jacoco.exec
+*.coverage
+*.lcov
+*.hprof
+
+# ==============================
+# Spring Boot and app-specific
+# ==============================
+spring.log
+*.pid
+.rebel.xml
+logs/
+.mvn/
+
+# ==============================
+# Local environment files
+# ==============================
+.env
+.env.*
+*.local
+
+# ==============================
+# Database files (local testing)
+# ==============================
+*.h2.db
+*.mv.db
+*.sqlite
+
+# ==============================
+# Docker & CI/CD (optional)
+# ==============================
+docker-compose.override.yml
+.docker/
