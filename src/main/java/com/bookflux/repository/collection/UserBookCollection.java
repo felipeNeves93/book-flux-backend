@@ -37,5 +37,6 @@ public class UserBookCollection {
   private Integer stars;
   private LocalDateTime dateAdded;
   private String userId;
+  private List<ReadingSession> readingSessions;
 
 }

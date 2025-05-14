@@ -1,0 +1,51 @@
+package com.bookflux.integration.service;
+
+import com.bookflux.dto.EndReadingSessionRequest;
+
+import com.bookflux.dto.StartReadingSessionRequest;
+import com.bookflux.repository.collection.ReadingSession;
+import com.bookflux.repository.collection.ReadingSessionStatus;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+
+@Service
+public class SessionServiceImpl implements SessionService {
+
+    @Override
+    public ReadingSession  startSession(StartReadingSessionRequest readingSessionRequest) {
+
+        if (readingSessionRequest.read) {
+            throw new IllegalStateException("The book has already been read");
+        }
+        ReadingSession session = new ReadingSession();
+        session.setBookId(readingSessionRequest.getBookId());
+        session.setStartTime(LocalDateTime.now());
+        session.setEndTime(readingSessionRequest.getEndTime());
+        session.setStatus(ReadingSessionStatus.IN_PROGRESS);
+        return session;
+
+    }
+
+    @Override
+    public ReadingSession finishSession(EndReadingSessionRequest readingSessionRequest) {
+
+        if (invalidSessionRequest(readingSessionRequest)) {
+            throw new IllegalStateException("Session cannot be created");
+        }
+        ReadingSession finishSession = new ReadingSession();
+        finishSession.setEndTime(LocalDateTime.now());
+        finishSession.setNumberOfPagesRead(readingSessionRequest.getNumberOfPagesRead());
+        finishSession.setStatus(ReadingSessionStatus.COMPLETE);
+        return finishSession;
+
+    }
+        private boolean invalidSessionRequest(EndReadingSessionRequest endReadingSessionRequest) {
+            return endReadingSessionRequest.getSessionId() == null &&
+                    endReadingSessionRequest.getNumberOfPagesRead() < 0 &&
+                    endReadingSessionRequest.getUserId() == null &&
+                    endReadingSessionRequest.getStatus() == ReadingSessionStatus.COMPLETE;
+        }
+
+    }
+
