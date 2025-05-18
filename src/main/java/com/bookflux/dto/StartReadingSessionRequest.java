@@ -1,5 +1,6 @@
     package com.bookflux.dto;
 
+    import com.bookflux.repository.collection.UserBookCollection;
     import lombok.AllArgsConstructor;
     import lombok.Getter;
     import lombok.NoArgsConstructor;
@@ -16,5 +17,5 @@
         private String userId;
         private LocalDateTime startTime;
         private LocalDateTime endTime;
-        public boolean read;
+        private UserBookCollection userBookCollection;
     }

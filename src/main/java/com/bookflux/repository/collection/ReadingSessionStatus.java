@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum ReadingSessionStatus {
-    IN_PROGRESS, COMPLETE, STOPPED
+    IN_PROGRESS, COMPLETE, CANCELED, STOPPED
 }
