@@ -22,17 +22,10 @@ public class ReadingSessionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(session);
     }
 
-    @PatchMapping("/finish-reading-session/{sessionId}/{numberOfPages}")
-    public ResponseEntity<ReadingSession> finishSession(
-
-            @PathVariable String sessionId,
-            @PathVariable Integer numberOfPages) {
-
-        EndReadingSessionRequest request = new EndReadingSessionRequest();
-        request.setSessionId(sessionId);
-        request.setNumberOfPagesRead(numberOfPages);
-        ReadingSession result = sessionService.finishSession(request);
-        return ResponseEntity.ok(result);
+    @PostMapping("/finish-reading-session/")
+    public ResponseEntity<ReadingSession> finishSession(@RequestBody EndReadingSessionRequest endReadingSessionRequest) {
+        ReadingSession result = sessionService.finishSession(endReadingSessionRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
 

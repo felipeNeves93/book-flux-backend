@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class BookController {
 
     private final BookCollectionApiService bookCollectionApiService;
-    private final SessionService sessionService;
 
-    public BookController(BookCollectionApiService bookCollectionApiService, SessionService sessionService) {
+    public BookController(BookCollectionApiService bookCollectionApiService) {
         this.bookCollectionApiService = bookCollectionApiService;
-        this.sessionService = sessionService;
     }
 
     @GetMapping

@@ -4,5 +4,5 @@ import com.bookflux.dto.GoogleBooksResponseDto;
 
 public interface BookCollectionApiService {
 
-    public GoogleBooksResponseDto searchBook(String query);
+    GoogleBooksResponseDto searchBook(String query);
 }

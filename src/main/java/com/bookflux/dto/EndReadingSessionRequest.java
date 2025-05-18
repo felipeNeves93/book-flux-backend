@@ -17,9 +17,11 @@ public class EndReadingSessionRequest {
     @NotNull
     private String userId;
     @Min(value = 1)
+    private String bookId;
     private Integer numberOfPagesRead;
     private ReadingSessionStatus status;
     private LocalDateTime endTime;
+    private LocalDateTime startTime;
 
 }
 

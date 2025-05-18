@@ -35,6 +35,10 @@ public class SessionServiceImpl implements SessionService {
         finishSession.setEndTime(LocalDateTime.now());
         finishSession.setNumberOfPagesRead(readingSessionRequest.getNumberOfPagesRead());
         finishSession.setStatus(ReadingSessionStatus.COMPLETE);
+        finishSession.setUserId(readingSessionRequest.getUserId());
+        finishSession.setBookId(readingSessionRequest.getBookId());
+        finishSession.setStartTime(readingSessionRequest.getStartTime());
+        finishSession.setSessionId(readingSessionRequest.getSessionId());
         return finishSession;
     }
 
