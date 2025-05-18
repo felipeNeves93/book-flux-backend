@@ -28,7 +28,7 @@ services:
       - mongo-network
     depends_on:
       mongodb:
-        condition: service_healthyw
+        condition: service_healthy
     profiles:
       - cli
 
