@@ -11,6 +11,7 @@ import com.bookflux.repository.collection.ReadingSessionStatus;
 import com.bookflux.repository.collection.UserBookCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
     private UserBookRepository userBookRepository;
 
     @Override
+    @Transactional
     public ReadingSession  startSession(StartReadingSessionRequest readingSessionRequest, UserBookCollection userBookCollection) {
 
         if (userBookCollection.isRead()) {
@@ -34,11 +36,15 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
         ReadingSession session = new ReadingSession();
         session.setUserId(readingSessionRequest.getUserId());
         session.setBookId(readingSessionRequest.getBookId());
-        session.setStartTime(LocalDateTime.now());
+        session.setStartTime(LocalDateTime.now());      
         session.setEndTime(readingSessionRequest.getEndTime());
         session.setStatus(ReadingSessionStatus.IN_PROGRESS);
         session.setSessionId(UUID.randomUUID().toString());
+        session.setUserBookCollection(userBookCollection);
+
         ReadingSession savedSession = readingSessionRepository.save(session);
+
+
         if (userBookCollection.getReadingSessions().isEmpty()){
             userBookCollection.setReadingSessions(new ArrayList<>());
         }
@@ -57,6 +63,7 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
         finishSession.setBookId(readingSessionRequest.getBookId());
         finishSession.setStartTime(readingSessionRequest.getStartTime());
         finishSession.setSessionId(readingSessionRequest.getSessionId());
+
         return finishSession;
     }
 

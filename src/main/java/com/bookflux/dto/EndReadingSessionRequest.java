@@ -1,6 +1,7 @@
 package com.bookflux.dto;
 
 import com.bookflux.repository.collection.ReadingSessionStatus;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 public class EndReadingSessionRequest {
 
-    @NotNull
+    @NotBlank
     private String sessionId;
     @NotNull
     private String userId;

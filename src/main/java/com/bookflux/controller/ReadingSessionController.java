@@ -24,13 +24,13 @@ public class ReadingSessionController {
     public ResponseEntity<ReadingSession> startSession(@RequestBody StartReadingSessionRequest request) {
         UserBookCollection userBook = request.getUserBookCollection();
         ReadingSession session = sessionService.startSession(request, userBook);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(session);
+        return ResponseEntity.status(HttpStatus.CREATED).body(session);
     }
 
     @PostMapping("/finish-reading-session/")
     public ResponseEntity<ReadingSession> finishSession(@RequestBody @Valid EndReadingSessionRequest endReadingSessionRequest) {
         ReadingSession result = sessionService.finishSession(endReadingSessionRequest);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(result);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
 
