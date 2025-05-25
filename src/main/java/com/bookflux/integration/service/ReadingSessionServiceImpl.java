@@ -28,9 +28,9 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
 
     @Override
     @Transactional
-    public ReadingSession  startSession(StartReadingSessionRequest readingSessionRequest, UserBookCollection userBookCollection) {
+    public ReadingSession  startSession(StartReadingSessionRequest readingSessionRequest) {
 
-        if (userBookCollection.isRead()) {
+        if (readingSessionRequest.getUserBookCollection().isRead()) {
             throw new InvalidReadingSessionException("The book has already been read");
         }
         ReadingSession session = new ReadingSession();
@@ -40,31 +40,35 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
         session.setEndTime(readingSessionRequest.getEndTime());
         session.setStatus(ReadingSessionStatus.IN_PROGRESS);
         session.setSessionId(UUID.randomUUID().toString());
-        session.setUserBookCollection(userBookCollection);
+        session.setUserBookCollection(readingSessionRequest.getUserBookCollection());
 
         ReadingSession savedSession = readingSessionRepository.save(session);
 
 
-        if (userBookCollection.getReadingSessions().isEmpty()){
-            userBookCollection.setReadingSessions(new ArrayList<>());
+        if (readingSessionRequest.getUserBookCollection().getReadingSessions() == null) {
+            readingSessionRequest.getUserBookCollection().setReadingSessions(new ArrayList<>());
         }
-        userBookCollection.getReadingSessions().add(savedSession);
-        userBookRepository.save(userBookCollection);
+        readingSessionRequest.getUserBookCollection().getReadingSessions().add(savedSession);
+        userBookRepository.save(readingSessionRequest.getUserBookCollection());
+
         return savedSession;
     }
 
     @Override
-    public ReadingSession finishSession(EndReadingSessionRequest readingSessionRequest) {
-        ReadingSession finishSession = new ReadingSession();
-        finishSession.setEndTime(LocalDateTime.now());
-        finishSession.setNumberOfPagesRead(readingSessionRequest.getNumberOfPagesRead());
-        finishSession.setStatus(ReadingSessionStatus.COMPLETE);
-        finishSession.setUserId(readingSessionRequest.getUserId());
-        finishSession.setBookId(readingSessionRequest.getBookId());
-        finishSession.setStartTime(readingSessionRequest.getStartTime());
-        finishSession.setSessionId(readingSessionRequest.getSessionId());
+    public ReadingSession finishSession(EndReadingSessionRequest endReadingSessionRequest) {
 
-        return finishSession;
+        ReadingSession endSession =  readingSessionRepository.findBySessionId(endReadingSessionRequest.getSessionId()).
+                orElseThrow(() -> new InvalidReadingSessionException("Session not found"));
+
+        if (endSession.getStatus() == ReadingSessionStatus.COMPLETE) {
+            throw new InvalidReadingSessionException("Session already completed");
+        }
+
+        endSession.setEndTime(LocalDateTime.now());
+        endSession.setNumberOfPagesRead(endReadingSessionRequest.getNumberOfPagesRead());
+        endSession.setStatus(ReadingSessionStatus.COMPLETE);
+
+        return readingSessionRepository.save(endSession);
     }
 
 

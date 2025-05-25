@@ -6,6 +6,6 @@ import com.bookflux.repository.collection.ReadingSession;
 import com.bookflux.repository.collection.UserBookCollection;
 
     public interface ReadingSessionService  {
-    public ReadingSession startSession(StartReadingSessionRequest readingSessionRequest, UserBookCollection userBookCollection);
+    public ReadingSession startSession(StartReadingSessionRequest readingSessionRequest);
     public ReadingSession finishSession(EndReadingSessionRequest readingSessionRequest);
 }

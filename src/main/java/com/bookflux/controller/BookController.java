@@ -23,5 +23,4 @@ public class BookController {
         BookCollection book = BookMapper.toDomain(response);
         return ResponseEntity.ok(book);
     }
-
 }

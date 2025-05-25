@@ -23,7 +23,7 @@ public class ReadingSessionController {
     @PostMapping("/start-reading-session")
     public ResponseEntity<ReadingSession> startSession(@RequestBody StartReadingSessionRequest request) {
         UserBookCollection userBook = request.getUserBookCollection();
-        ReadingSession session = sessionService.startSession(request, userBook);
+        ReadingSession session = sessionService.startSession(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(session);
     }
 
