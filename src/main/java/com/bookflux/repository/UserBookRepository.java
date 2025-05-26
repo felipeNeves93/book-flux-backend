@@ -9,7 +9,8 @@ import java.util.Optional;
 public interface UserBookRepository extends MongoRepository<UserBookCollection, String> {
     List<UserBookCollection> findByUserId(String userId);
 
-    List<UserBookCollection> findByBookId(String bookId);
+    Optional<UserBookCollection> findByBookId(String bookId);
+
 
     Optional<UserBookCollection> findByUserIdAndBookId(String userId, String bookId);
 

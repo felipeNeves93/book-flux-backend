@@ -28,33 +28,39 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
 
     @Override
     @Transactional
-    public ReadingSession  startSession(StartReadingSessionRequest readingSessionRequest) {
+    public ReadingSession startSession(StartReadingSessionRequest readingSessionRequest) {
 
-        if (readingSessionRequest.getUserBookCollection().isRead()) {
+        String userBookId = readingSessionRequest.getUserBookCollection().getBookId();
+        UserBookCollection userBook = userBookRepository.findByBookId(userBookId)
+                .orElseThrow(() -> new InvalidReadingSessionException("UserBookCollection not found"));
+
+        if (userBook.isRead()) {
             throw new InvalidReadingSessionException("The book has already been read");
         }
+
         ReadingSession session = new ReadingSession();
         session.setUserId(readingSessionRequest.getUserId());
         session.setBookId(readingSessionRequest.getBookId());
-        session.setStartTime(LocalDateTime.now());      
+        session.setStartTime(LocalDateTime.now());
         session.setEndTime(readingSessionRequest.getEndTime());
         session.setStatus(ReadingSessionStatus.IN_PROGRESS);
         session.setSessionId(UUID.randomUUID().toString());
-        session.setUserBookCollection(readingSessionRequest.getUserBookCollection());
+        session.setUserBookCollection(userBook);
 
         ReadingSession savedSession = readingSessionRepository.save(session);
 
-
-        if (readingSessionRequest.getUserBookCollection().getReadingSessions() == null) {
-            readingSessionRequest.getUserBookCollection().setReadingSessions(new ArrayList<>());
+        if (userBook.getReadingSessions() == null) {
+            userBook.setReadingSessions(new ArrayList<>());
         }
-        readingSessionRequest.getUserBookCollection().getReadingSessions().add(savedSession);
-        userBookRepository.save(readingSessionRequest.getUserBookCollection());
+        userBook.getReadingSessions().add(savedSession);
+
+        userBookRepository.save(userBook);
 
         return savedSession;
     }
 
     @Override
+    @Transactional
     public ReadingSession finishSession(EndReadingSessionRequest endReadingSessionRequest) {
 
         ReadingSession endSession =  readingSessionRepository.findBySessionId(endReadingSessionRequest.getSessionId()).
@@ -68,8 +74,26 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
         endSession.setNumberOfPagesRead(endReadingSessionRequest.getNumberOfPagesRead());
         endSession.setStatus(ReadingSessionStatus.COMPLETE);
 
-        return readingSessionRepository.save(endSession);
+        ReadingSession savedSession = readingSessionRepository.save(endSession);
+
+        UserBookCollection userBook = userBookRepository.findByUserIdAndBookId(
+                savedSession.getUserId(),
+                savedSession.getBookId()
+        ).orElseThrow(() -> new InvalidReadingSessionException("UserBookCollection not found"));
+
+        if (userBook.getReadingSessions() == null) {
+            userBook.setReadingSessions(new ArrayList<>());
+        }
+        userBook.getReadingSessions().add(savedSession);
+
+        userBookRepository.save(userBook);
+
+        return savedSession;
+
+
     }
+
+
 
 
     }

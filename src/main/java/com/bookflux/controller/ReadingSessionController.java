@@ -1,10 +1,13 @@
 package com.bookflux.controller;
 
 import com.bookflux.dto.EndReadingSessionRequest;
+import com.bookflux.dto.EndReadingSessionResponse;
 import com.bookflux.dto.StartReadingSessionRequest;
+import com.bookflux.dto.StartReadingSessionResponse;
+import com.bookflux.integration.mapper.EndingSessionMapper;
+import com.bookflux.integration.mapper.ReadingSessionMapper;
 import com.bookflux.integration.service.ReadingSessionService;
 import com.bookflux.repository.collection.ReadingSession;
-import com.bookflux.repository.collection.UserBookCollection;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,16 +24,19 @@ public class ReadingSessionController {
     private final ReadingSessionService sessionService;
 
     @PostMapping("/start-reading-session")
-    public ResponseEntity<ReadingSession> startSession(@RequestBody StartReadingSessionRequest request) {
-        UserBookCollection userBook = request.getUserBookCollection();
+    public ResponseEntity<StartReadingSessionResponse> startSession(@RequestBody @Valid StartReadingSessionRequest request) {
+
         ReadingSession session = sessionService.startSession(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(session);
+        StartReadingSessionResponse response = ReadingSessionMapper.maptoResponse(session);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/finish-reading-session/")
-    public ResponseEntity<ReadingSession> finishSession(@RequestBody @Valid EndReadingSessionRequest endReadingSessionRequest) {
-        ReadingSession result = sessionService.finishSession(endReadingSessionRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    public ResponseEntity<EndReadingSessionResponse> finishSession(@RequestBody @Valid EndReadingSessionRequest endReadingSessionRequest) {
+
+        ReadingSession session = sessionService.finishSession(endReadingSessionRequest);
+        EndReadingSessionResponse response = EndingSessionMapper.mapToResponse(session);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 
