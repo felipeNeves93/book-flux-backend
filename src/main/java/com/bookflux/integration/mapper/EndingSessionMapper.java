@@ -3,7 +3,11 @@ package com.bookflux.integration.mapper;
 import com.bookflux.dto.EndReadingSessionResponse;
 import com.bookflux.repository.collection.ReadingSession;
 
-public class EndingSessionMapper {
+public final class EndingSessionMapper {
+
+    private EndingSessionMapper() {
+
+    }
 
     public static EndReadingSessionResponse mapToResponse(ReadingSession session) {
         return EndReadingSessionResponse.builder()

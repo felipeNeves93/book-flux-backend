@@ -68,7 +68,10 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
 
         if (endSession.getStatus() == ReadingSessionStatus.COMPLETE) {
             throw new InvalidReadingSessionException("Session already completed");
+        } else if (endSession.getStatus() == ReadingSessionStatus.CANCELED) {
+            throw new InvalidReadingSessionException("Session cannot be canceled");
         }
+
 
         endSession.setEndTime(LocalDateTime.now());
         endSession.setNumberOfPagesRead(endReadingSessionRequest.getNumberOfPagesRead());

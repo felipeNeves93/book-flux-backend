@@ -17,26 +17,26 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/books")
+@RequestMapping("/api/reading-session")
 @RequiredArgsConstructor
 public class ReadingSessionController {
 
     private final ReadingSessionService sessionService;
 
-    @PostMapping("/start-reading-session")
+    @PostMapping("/start")
     public ResponseEntity<StartReadingSessionResponse> startSession(@RequestBody @Valid StartReadingSessionRequest request) {
 
         ReadingSession session = sessionService.startSession(request);
         StartReadingSessionResponse response = ReadingSessionMapper.maptoResponse(session);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/finish-reading-session/")
+    @PostMapping("/finish")
     public ResponseEntity<EndReadingSessionResponse> finishSession(@RequestBody @Valid EndReadingSessionRequest endReadingSessionRequest) {
 
         ReadingSession session = sessionService.finishSession(endReadingSessionRequest);
         EndReadingSessionResponse response = EndingSessionMapper.mapToResponse(session);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 

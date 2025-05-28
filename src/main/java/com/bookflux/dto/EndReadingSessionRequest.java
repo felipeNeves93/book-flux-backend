@@ -1,7 +1,6 @@
 package com.bookflux.dto;
 
 import com.bookflux.repository.collection.ReadingSessionStatus;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -23,7 +22,6 @@ public class EndReadingSessionRequest {
     private String bookId;
 
     @NotNull(message = "numberOfPagesRead is not optional")
-    @Min(1)
     private Integer numberOfPagesRead;
     private ReadingSessionStatus status;
     private LocalDateTime endTime;

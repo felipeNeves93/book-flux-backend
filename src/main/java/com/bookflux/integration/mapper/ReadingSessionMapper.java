@@ -3,7 +3,11 @@ package com.bookflux.integration.mapper;
 import com.bookflux.dto.StartReadingSessionResponse;
 import com.bookflux.repository.collection.ReadingSession;
 
-public class ReadingSessionMapper {
+public final class ReadingSessionMapper {
+
+    private ReadingSessionMapper() {
+    }
+
     public static StartReadingSessionResponse maptoResponse(ReadingSession readingSession){
         return  StartReadingSessionResponse.builder().
                 sessionId(readingSession.getSessionId()).
