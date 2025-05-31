@@ -79,15 +79,25 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
 
         ReadingSession savedSession = readingSessionRepository.save(endSession);
 
+
         UserBookCollection userBook = userBookRepository.findByUserIdAndBookId(
                 savedSession.getUserId(),
                 savedSession.getBookId()
         ).orElseThrow(() -> new InvalidReadingSessionException("UserBookCollection not found"));
 
-        if (userBook.getReadingSessions() == null) {
-            userBook.setReadingSessions(new ArrayList<>());
+
+        boolean exists = userBook.getReadingSessions().stream()
+                .anyMatch(session -> session.getSessionId().equals(savedSession.getSessionId()));
+
+        if (!exists) {
+            throw new InvalidReadingSessionException("Reading session not found in user book collection");
         }
-        userBook.getReadingSessions().add(savedSession);
+
+        userBook.setReadingSessions(
+                userBook.getReadingSessions().stream()
+                        .map(session -> session.getSessionId().equals(savedSession.getSessionId()) ? savedSession : session)
+                        .toList()
+        );
 
         userBookRepository.save(userBook);
 

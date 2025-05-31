@@ -28,7 +28,7 @@ public class ReadingSessionController {
 
         ReadingSession session = sessionService.startSession(request);
         StartReadingSessionResponse response = ReadingSessionMapper.maptoResponse(session);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/finish")
@@ -36,7 +36,7 @@ public class ReadingSessionController {
 
         ReadingSession session = sessionService.finishSession(endReadingSessionRequest);
         EndReadingSessionResponse response = EndingSessionMapper.mapToResponse(session);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.noContent().build();
     }
 
 
