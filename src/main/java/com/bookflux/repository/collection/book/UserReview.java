@@ -1,5 +1,6 @@
-package com.bookflux.repository.collection;
+package com.bookflux.repository.collection.book;
 
+import com.bookflux.repository.collection.user.SummarizedUser;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -4,7 +4,7 @@ package com.bookflux.integration.mapper;
 import com.bookflux.dto.GoogleBooksResponseDto;
 import com.bookflux.dto.ImagelinksDto;
 import com.bookflux.enums.MaturityRating;
-import com.bookflux.repository.collection.BookCollection;
+import com.bookflux.repository.collection.book.BookCollection;
 
 public final class BookMapper {
 

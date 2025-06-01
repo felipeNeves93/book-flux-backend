@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.bookflux.MongoRepositoryTestContext;
 import com.bookflux.dto.ImagelinksDto;
 import com.bookflux.enums.MaturityRating;
-import com.bookflux.repository.collection.BookCollection;
+import com.bookflux.repository.collection.book.BookCollection;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;

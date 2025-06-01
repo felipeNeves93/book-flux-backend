@@ -1,7 +1,6 @@
-package com.bookflux.repository.collection;
+package com.bookflux.repository.collection.book;
 
-import com.bookflux.dto.ImagelinksDto;
-import com.bookflux.enums.MaturityRating;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,28 +12,30 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "bookCollection")
+@Document(collection = "userBookCollection")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
-public class BookCollection {
+@ToString
+public class UserBookCollection {
 
   @Id
-  private String id;
+  private String bookId;
+
   @Indexed
   private String title;
+
   private List<String> authors;
-  private String publisher;
-  private String publishedDate;
   private String description;
-  private Integer pageCount;
-  private List<String> categories;
-  private MaturityRating maturityRating;
-  private Double averageRating;
-  private ImagelinksDto imageLinks;
-  private String language;
+  private List<BookComment> comments;
+  private List<UserReview> userReviews;
+  private boolean isRead;
+  private boolean isFavorite;
+  private boolean wantToRead;
+  private Integer stars;
+  private LocalDateTime dateAdded;
+  private String userId;
 
 }

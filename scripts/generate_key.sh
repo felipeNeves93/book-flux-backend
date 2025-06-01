@@ -1,0 +1,1 @@
+echo "Generated key: $(openssl rand -base64 64)"
