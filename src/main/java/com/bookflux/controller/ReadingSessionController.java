@@ -34,8 +34,7 @@ public class ReadingSessionController {
     @PostMapping("/finish")
     public ResponseEntity<EndReadingSessionResponse> finishSession(@RequestBody @Valid EndReadingSessionRequest endReadingSessionRequest) {
 
-        ReadingSession session = sessionService.finishSession(endReadingSessionRequest);
-        EndReadingSessionResponse response = EndingSessionMapper.mapToResponse(session);
+        sessionService.finishSession(endReadingSessionRequest);
         return ResponseEntity.noContent().build();
     }
 

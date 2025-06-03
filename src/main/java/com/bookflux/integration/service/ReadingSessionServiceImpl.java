@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -93,11 +94,14 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
             throw new InvalidReadingSessionException("Reading session not found in user book collection");
         }
 
-        userBook.setReadingSessions(
-                userBook.getReadingSessions().stream()
-                        .map(session -> session.getSessionId().equals(savedSession.getSessionId()) ? savedSession : session)
-                        .toList()
-        );
+        List<ReadingSession> sessions = userBook.getReadingSessions();
+
+        for (int i = 0; i < sessions.size(); i++) {
+            if (sessions.get(i).getSessionId().equals(savedSession.getSessionId())) {
+                sessions.set(i, savedSession);
+                break;
+            }
+        }
 
         userBookRepository.save(userBook);
 
