@@ -1,4 +1,4 @@
-package com.bookflux.repository.collection;
+package com.bookflux.repository.collection.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

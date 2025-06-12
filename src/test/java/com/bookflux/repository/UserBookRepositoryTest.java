@@ -3,7 +3,7 @@ package com.bookflux.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.bookflux.MongoRepositoryTestContext;
-import com.bookflux.repository.collection.UserBookCollection;
+import com.bookflux.repository.collection.book.UserBookCollection;
 import com.bookflux.utils.StringUtils;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
