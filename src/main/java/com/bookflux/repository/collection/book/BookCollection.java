@@ -1,5 +1,6 @@
-package com.bookflux.repository.collection;
+package com.bookflux.repository.collection.book;
 
+import com.bookflux.config.mongo.SharedEntity;
 import com.bookflux.dto.ImagelinksDto;
 import com.bookflux.enums.MaturityRating;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @ToString
 @Builder
+@SharedEntity
 public class BookCollection {
 
   @Id

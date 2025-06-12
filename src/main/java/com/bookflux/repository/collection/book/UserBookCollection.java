@@ -1,4 +1,4 @@
-package com.bookflux.repository.collection;
+package com.bookflux.repository.collection.book;
 
 import java.time.LocalDateTime;
 import java.util.List;
