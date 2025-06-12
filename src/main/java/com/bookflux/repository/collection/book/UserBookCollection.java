@@ -1,5 +1,6 @@
 package com.bookflux.repository.collection.book;
 
+import com.bookflux.repository.collection.ReadingSession;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;

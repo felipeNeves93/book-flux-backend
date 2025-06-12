@@ -1,5 +1,6 @@
 package com.bookflux.repository.collection;
 
+import com.bookflux.repository.collection.book.UserBookCollection;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.mongodb.core.index.Indexed;
