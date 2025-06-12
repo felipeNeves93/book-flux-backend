@@ -1,4 +1,4 @@
-package com.bookflux.repository.collection;
+package com.bookflux.repository.collection.book;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,5 +37,6 @@ public class UserBookCollection {
   private Integer stars;
   private LocalDateTime dateAdded;
   private String userId;
+  private List<ReadingSession> readingSessions;
 
 }
