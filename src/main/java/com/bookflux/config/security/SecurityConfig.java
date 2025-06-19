@@ -1,7 +1,7 @@
 package com.bookflux.config.security;
 
 import com.bookflux.repository.collection.user.UserRepository;
-import com.bookflux.util.JwtUtil;
+import com.bookflux.utils.JwtUtil;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

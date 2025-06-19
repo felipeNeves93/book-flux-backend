@@ -5,7 +5,7 @@ import com.bookflux.controller.requests.RegisterUserRequest;
 import com.bookflux.controller.response.AuthResponse;
 import com.bookflux.repository.collection.user.User;
 import com.bookflux.service.UserService;
-import com.bookflux.util.JwtUtil;
+import com.bookflux.utils.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

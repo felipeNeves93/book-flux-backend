@@ -1,6 +1,6 @@
 package com.bookflux.config.security;
 
-import com.bookflux.util.JwtUtil;
+import com.bookflux.utils.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
