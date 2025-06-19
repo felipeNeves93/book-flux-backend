@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   @Transactional
-  public void registerUser(User user) {
+  public User registerUser(User user) {
     var existingUser = userRepository.findByEmail(user.getEmail()).orElse(null);
 
     if (existingUser != null) {
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     user.setId(StringUtils.generateUUID());
-    userRepository.save(user);
+    return userRepository.save(user);
   }
 
 }
