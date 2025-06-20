@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 
+
 public class TenantMongoTemplate extends MongoTemplate {
 
   public TenantMongoTemplate(SimpleMongoClientDatabaseFactory factory) {

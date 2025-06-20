@@ -16,7 +16,7 @@ public class TenantInterceptor implements HandlerInterceptor {
       Object handler) {
 
     var path = request.getRequestURI();
-    if (path.equals("/register") || path.equals("/login")) {
+    if (this.isTenantFree(path)) {
       TenantContext.clear();
       return true;
     }
@@ -25,6 +25,7 @@ public class TenantInterceptor implements HandlerInterceptor {
 
     if (auth != null && auth.isAuthenticated() && ANONYMOUS_USER != auth.getPrincipal()) {
       var tenantId = auth.getName();
+      System.out.printf("TENANT ID: %s%n", tenantId);
       TenantContext.setTenantId(tenantId);
       return true;
     }
@@ -36,6 +37,11 @@ public class TenantInterceptor implements HandlerInterceptor {
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
       Object handler, Exception ex) {
     TenantContext.clear();
+  }
+
+  private boolean isTenantFree(String path) {
+    return path.startsWith("/auth")
+        || path.startsWith("/api/books");
   }
 
 }

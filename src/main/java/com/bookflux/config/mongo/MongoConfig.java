@@ -7,15 +7,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @Configuration
+@EnableMongoRepositories(basePackages = "com.bookflux.repository", mongoTemplateRef = "tenantMongoTemplate")
 @Profile("!test")
 public class MongoConfig {
 
   @Value("${spring.data.mongodb.uri}")
   private String mongoDBUri;
 
-  @Bean
+  @Bean(name = "tenantMongoTemplate")
   public MongoTemplate mongoTemplate() {
     return new TenantMongoTemplate(new SimpleMongoClientDatabaseFactory(mongoDBUri));
   }
