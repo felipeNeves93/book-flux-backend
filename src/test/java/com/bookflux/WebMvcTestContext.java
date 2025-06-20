@@ -8,6 +8,12 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
+/**
+ * @author Felipe Neves
+ * <p>
+ * Spring Boot test context excluding mongo and oauth2 autoconfiguration, and containing test
+ * properties to generate tokens and test google api url with mocked value
+ */
 @ActiveProfiles("test")
 @SpringBootTest(properties = {
     "spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration,"

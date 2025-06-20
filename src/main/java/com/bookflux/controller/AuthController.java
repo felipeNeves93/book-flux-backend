@@ -1,5 +1,6 @@
 package com.bookflux.controller;
 
+import com.bookflux.config.tenant.TenantContext;
 import com.bookflux.controller.requests.LoginRequest;
 import com.bookflux.controller.requests.RegisterUserRequest;
 import com.bookflux.controller.response.AuthResponse;
@@ -9,6 +10,7 @@ import com.bookflux.utils.JwtUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,10 +19,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/auth")
 public class AuthController {
 
   private final UserService userService;
@@ -56,5 +60,14 @@ public class AuthController {
   public ResponseEntity<?> oauth2Success(Authentication authentication) {
     var jwt = jwtUtil.generateToken(authentication.getName());
     return ResponseEntity.ok(new AuthResponse(jwt, authentication.getName()));
+  }
+
+  @PostMapping("/logout")
+  @PreAuthorize("isAuthenticated()")
+  public ResponseEntity<String> logout() {
+    SecurityContextHolder.clearContext();
+    TenantContext.clear();
+
+    return ResponseEntity.ok("Logout successfully!");
   }
 }

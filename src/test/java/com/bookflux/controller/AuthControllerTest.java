@@ -44,7 +44,7 @@ class AuthControllerTest extends WebMvcTestContext {
     var registerUserRequest = new RegisterUserRequest("felipe@email.com", "felipe", "felipe123",
         null);
 
-    mockMvc.perform(post("/register").contentType(MediaType.APPLICATION_JSON)
+    mockMvc.perform(post("/auth/register").contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(registerUserRequest))).andExpect(status().isOk())
         .andExpect(content().string("User created successfully!"));
   }
@@ -62,7 +62,7 @@ class AuthControllerTest extends WebMvcTestContext {
 
     var request = new RegisterUserRequest(email, "pass456", "newuser", null);
 
-    mockMvc.perform(post("/register")
+    mockMvc.perform(post("/auth/register")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().is4xxClientError());
@@ -83,7 +83,7 @@ class AuthControllerTest extends WebMvcTestContext {
 
     var loginRequest = new LoginRequest(email, rawPassword);
 
-    mockMvc.perform(post("/login")
+    mockMvc.perform(post("/auth/login")
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(loginRequest)))
         .andExpect(status().isOk())
