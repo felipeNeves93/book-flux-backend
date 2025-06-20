@@ -25,6 +25,7 @@ public class TenantInterceptor implements HandlerInterceptor {
 
     if (auth != null && auth.isAuthenticated() && ANONYMOUS_USER != auth.getPrincipal()) {
       var tenantId = auth.getName();
+      System.out.printf("TENANT ID: %s%n", tenantId);
       TenantContext.setTenantId(tenantId);
       return true;
     }

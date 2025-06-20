@@ -17,7 +17,7 @@ public class MongoConfig {
   @Value("${spring.data.mongodb.uri}")
   private String mongoDBUri;
 
-  @Bean
+  @Bean(name = "tenantMongoTemplate")
   public MongoTemplate mongoTemplate() {
     return new TenantMongoTemplate(new SimpleMongoClientDatabaseFactory(mongoDBUri));
   }
