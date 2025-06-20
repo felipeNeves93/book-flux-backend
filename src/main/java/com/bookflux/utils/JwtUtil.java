@@ -1,4 +1,4 @@
-package com.bookflux.util;
+package com.bookflux.utils;
 
 import com.bookflux.exception.InvalidSecretKeyException;
 import io.jsonwebtoken.Claims;
@@ -19,12 +19,11 @@ public class JwtUtil {
   public String generateToken(String email) {
     try {
       byte[] keyBytes = Base64.getDecoder().decode(secretKey);
-      // 1 hour
-      long expirationTime = 1000 * 60L * 60;
+      long oneHourExpirationTime = 1000 * 60L * 60;
       return Jwts.builder()
           .setSubject(email)
           .setIssuedAt(new Date())
-          .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+          .setExpiration(new Date(System.currentTimeMillis() + oneHourExpirationTime))
           .signWith(Keys.hmacShaKeyFor(keyBytes), SignatureAlgorithm.HS512)
           .compact();
     } catch (IllegalArgumentException e) {
