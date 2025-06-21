@@ -4,9 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.bookflux.dto.GoogleBooksResponseDto;
-import com.bookflux.dto.GoogleBooksResponseDto.VolumeInfo;
-import com.bookflux.dto.ImagelinksDto;
+import com.bookflux.dto.google.GoogleBooksResponseDto;
+import com.bookflux.dto.google.GoogleBooksResponseDto.VolumeInfo;
+import com.bookflux.dto.google.ImagelinksDto;
 import com.bookflux.enums.MaturityRating;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;

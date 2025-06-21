@@ -1,6 +1,5 @@
-package com.bookflux.repository.collection.book;
+package com.bookflux.dto;
 
-import com.bookflux.config.mongo.SharedEntity;
 import com.bookflux.dto.google.ImagelinksDto;
 import com.bookflux.enums.MaturityRating;
 import java.util.List;
@@ -9,24 +8,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "bookCollection")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Builder
-@SharedEntity
-public class BookCollection {
+public class BookCollectionDto {
 
-  @Id
   private String id;
-  @Indexed
   private String title;
   private List<String> authors;
   private String publisher;

@@ -1,10 +1,9 @@
 package com.bookflux.controller;
 
-import com.bookflux.dto.EndReadingSessionRequest;
-import com.bookflux.dto.EndReadingSessionResponse;
-import com.bookflux.dto.StartReadingSessionRequest;
-import com.bookflux.dto.StartReadingSessionResponse;
-import com.bookflux.integration.mapper.EndingSessionMapper;
+import com.bookflux.dto.google.EndReadingSessionRequest;
+import com.bookflux.dto.google.EndReadingSessionResponse;
+import com.bookflux.dto.google.StartReadingSessionRequest;
+import com.bookflux.dto.google.StartReadingSessionResponse;
 import com.bookflux.integration.mapper.ReadingSessionMapper;
 import com.bookflux.integration.service.ReadingSessionService;
 import com.bookflux.repository.collection.ReadingSession;

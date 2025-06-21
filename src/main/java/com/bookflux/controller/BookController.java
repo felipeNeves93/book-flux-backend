@@ -1,6 +1,6 @@
 package com.bookflux.controller;
 
-import com.bookflux.dto.GoogleBooksResponseDto;
+import com.bookflux.dto.google.GoogleBooksResponseDto;
 import com.bookflux.integration.mapper.BookMapper;
 import com.bookflux.integration.service.BookCollectionApiService;
 import com.bookflux.repository.collection.book.BookCollection;

@@ -1,4 +1,4 @@
-package com.bookflux.dto;
+package com.bookflux.dto.google;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

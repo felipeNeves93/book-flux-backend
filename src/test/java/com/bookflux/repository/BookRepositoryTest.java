@@ -3,7 +3,7 @@ package com.bookflux.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.bookflux.MongoRepositoryTestContext;
-import com.bookflux.dto.ImagelinksDto;
+import com.bookflux.dto.google.ImagelinksDto;
 import com.bookflux.enums.MaturityRating;
 import com.bookflux.repository.collection.book.BookCollection;
 import java.util.List;
@@ -37,18 +37,18 @@ class BookRepositoryTest extends MongoRepositoryTestContext {
 
     var extractedBook = searchedBook.get();
 
-    assertThat(extractedBook.getAuthors().getFirst())
-        .isEqualTo(bookCollection.getAuthors().getFirst());
+    assertThat(extractedBook.getAuthors().getFirst()).isEqualTo(
+        bookCollection.getAuthors().getFirst());
 
     assertThat(extractedBook.getAverageRating()).isEqualTo(bookCollection.getAverageRating());
     assertThat(extractedBook.getCategories().getFirst()).isEqualTo(
         bookCollection.getCategories().getFirst());
     assertThat(extractedBook.getDescription()).isEqualTo(bookCollection.getDescription());
     assertThat(extractedBook.getTitle()).isEqualTo(bookCollection.getTitle());
-    assertThat(extractedBook.getImageLinks().getSmallThumbnail())
-        .isEqualTo(bookCollection.getImageLinks().getSmallThumbnail());
-    assertThat(extractedBook.getImageLinks().getThumbnail())
-        .isEqualTo(bookCollection.getImageLinks().getThumbnail());
+    assertThat(extractedBook.getImageLinks().getSmallThumbnail()).isEqualTo(
+        bookCollection.getImageLinks().getSmallThumbnail());
+    assertThat(extractedBook.getImageLinks().getThumbnail()).isEqualTo(
+        bookCollection.getImageLinks().getThumbnail());
     assertThat(extractedBook.getLanguage()).isEqualTo(bookCollection.getLanguage());
     assertThat(extractedBook.getPageCount()).isEqualTo(bookCollection.getPageCount());
     assertThat(extractedBook.getPublishedDate()).isEqualTo(bookCollection.getPublishedDate());
@@ -86,20 +86,46 @@ class BookRepositoryTest extends MongoRepositoryTestContext {
     assertThat(updatedBook.get().getDescription()).isEqualTo(updatedDescription);
   }
 
+  @DisplayName("When searching for title ignoring case then should return the books related to title")
+  @Test
+  void whenSearchingForTitleIgnoringCaseThenShouldReturnTheBooksRelatedToTitle() {
+    var lordOfTheRings = this.createBookCollection();
+    var lordOfTheMoths = this.createBookCollection();
+
+    lordOfTheMoths.setTitle("Lord of the Moths");
+
+    bookRepository.save(lordOfTheRings);
+    bookRepository.save(lordOfTheMoths);
+
+    var searchedBooks = bookRepository.findByTitleContainingIgnoreCase("lord");
+
+    assertThat(searchedBooks).hasSize(2);
+  }
+
+  @DisplayName("When searching for non existing title ignoring case then should return empty list")
+  @Test
+  void whenSearchingForNonExistingTitleIgnoringCaseThenShouldReturnEmptyList() {
+    var lordOfTheRings = this.createBookCollection();
+    var lordOfTheMoths = this.createBookCollection();
+
+    lordOfTheMoths.setTitle("Lord of the Moths");
+
+    bookRepository.save(lordOfTheRings);
+    bookRepository.save(lordOfTheMoths);
+
+    var searchedBooks = bookRepository.findByTitleContainingIgnoreCase("test");
+
+    assertThat(searchedBooks).isEmpty();
+  }
+
   private BookCollection createBookCollection() {
-    return BookCollection.builder()
-        .authors(List.of("Tolkien"))
-        .averageRating(5.0)
+    return BookCollection.builder().authors(List.of("Tolkien")).averageRating(5.0)
         .categories(List.of("Fantasy"))
         .description("An amazing adventure to throw the ring into Mount Doom")
         .title("Lord of the Rings - The Return of the King")
         .imageLinks(new ImagelinksDto("https://example.com", "https://example.com"))
-        .language("English")
-        .pageCount(1000)
-        .publishedDate("2022-01-01")
-        .maturityRating(MaturityRating.NOT_MATURE)
-        .publisher("Penguin")
-        .build();
+        .language("English").pageCount(1000).publishedDate("2022-01-01")
+        .maturityRating(MaturityRating.NOT_MATURE).publisher("Penguin").build();
   }
 
 }

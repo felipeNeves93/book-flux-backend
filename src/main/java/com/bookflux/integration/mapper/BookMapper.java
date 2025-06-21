@@ -1,8 +1,8 @@
 package com.bookflux.integration.mapper;
 
 
-import com.bookflux.dto.GoogleBooksResponseDto;
-import com.bookflux.dto.ImagelinksDto;
+import com.bookflux.dto.google.GoogleBooksResponseDto;
+import com.bookflux.dto.google.ImagelinksDto;
 import com.bookflux.enums.MaturityRating;
 import com.bookflux.repository.collection.book.BookCollection;
 
@@ -20,7 +20,6 @@ public final class BookMapper {
     GoogleBooksResponseDto.VolumeInfo info = responseDto.getItems().getFirst().getVolumeInfo();
 
     return BookCollection.builder()
-        .id(null)
         .title(info.getTitle())
         .authors(info.getAuthors())
         .publisher(info.getPublisher())

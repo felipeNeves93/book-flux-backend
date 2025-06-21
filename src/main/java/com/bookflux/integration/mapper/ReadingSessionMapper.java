@@ -1,6 +1,6 @@
 package com.bookflux.integration.mapper;
 
-import com.bookflux.dto.StartReadingSessionResponse;
+import com.bookflux.dto.google.StartReadingSessionResponse;
 import com.bookflux.repository.collection.ReadingSession;
 
 public final class ReadingSessionMapper {

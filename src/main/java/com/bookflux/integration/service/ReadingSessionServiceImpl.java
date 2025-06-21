@@ -1,8 +1,8 @@
 package com.bookflux.integration.service;
 
 import com.bookflux.config.exception.InvalidReadingSessionException;
-import com.bookflux.dto.EndReadingSessionRequest;
-import com.bookflux.dto.StartReadingSessionRequest;
+import com.bookflux.dto.google.EndReadingSessionRequest;
+import com.bookflux.dto.google.StartReadingSessionRequest;
 import com.bookflux.repository.ReadingSessionRepository;
 import com.bookflux.repository.UserBookRepository;
 import com.bookflux.repository.collection.ReadingSession;

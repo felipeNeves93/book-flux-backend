@@ -1,6 +1,6 @@
 package com.bookflux.integration.mapper;
 
-import com.bookflux.dto.EndReadingSessionResponse;
+import com.bookflux.dto.google.EndReadingSessionResponse;
 import com.bookflux.repository.collection.ReadingSession;
 
 public final class EndingSessionMapper {
