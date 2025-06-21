@@ -6,10 +6,7 @@
     import jakarta.validation.constraints.NotBlank;
     import jakarta.validation.constraints.NotNull;
     import jakarta.validation.constraints.PastOrPresent;
-    import lombok.AllArgsConstructor;
-    import lombok.Getter;
-    import lombok.NoArgsConstructor;
-    import lombok.Setter;
+    import lombok.*;
 
     import java.time.LocalDateTime;
 
@@ -17,6 +14,7 @@
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
+    @Builder
     public class StartReadingSessionRequest {
         @NotBlank
         private String bookId;
