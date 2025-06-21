@@ -19,7 +19,6 @@ class ReadingSessionMapperTest {
         ReadingSession session = new ReadingSession();
         session.setSessionId(UUID.randomUUID().toString());
         session.setBookId("book-generic");
-        session.setUserId("user-generic");
         session.setStartTime(LocalDateTime.now());
         session.setEndTime(LocalDateTime.now().plusHours(1));
         session.setStatus(ReadingSessionStatus.IN_PROGRESS);
