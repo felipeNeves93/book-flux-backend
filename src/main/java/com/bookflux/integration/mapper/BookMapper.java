@@ -5,6 +5,9 @@ import com.bookflux.dto.google.GoogleBooksResponseDto;
 import com.bookflux.dto.google.ImagelinksDto;
 import com.bookflux.enums.MaturityRating;
 import com.bookflux.repository.collection.book.BookCollection;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public final class BookMapper {
 
@@ -12,26 +15,33 @@ public final class BookMapper {
 
   }
 
-  public static BookCollection toDomain(GoogleBooksResponseDto responseDto) {
+  public static List<BookCollection> fromGoogleApiResponse(GoogleBooksResponseDto responseDto) {
     if (responseDto == null || responseDto.getItems() == null || responseDto.getItems().isEmpty()) {
-      return null;
+      return Collections.emptyList();
     }
 
-    GoogleBooksResponseDto.VolumeInfo info = responseDto.getItems().getFirst().getVolumeInfo();
+    var googleBooks = responseDto.getItems();
+    var convertedBooks = new ArrayList<BookCollection>();
 
-    return BookCollection.builder()
-        .title(info.getTitle())
-        .authors(info.getAuthors())
-        .publisher(info.getPublisher())
-        .publishedDate(info.getPublishedDate())
-        .description(info.getDescription())
-        .pageCount(info.getPageCount())
-        .categories(info.getCategories())
-        .maturityRating(convertMaturity(info.getMaturityRating()))
-        .averageRating(info.getAverageRating())
-        .imageLinks(mapImageLinks(info))
-        .language(info.getLanguage())
-        .build();
+    googleBooks.forEach(response -> {
+      var info = response.getVolumeInfo();
+
+      convertedBooks.add(BookCollection.builder()
+          .title(info.getTitle())
+          .authors(info.getAuthors())
+          .publisher(info.getPublisher())
+          .publishedDate(info.getPublishedDate())
+          .description(info.getDescription())
+          .pageCount(info.getPageCount())
+          .categories(info.getCategories())
+          .maturityRating(convertMaturity(info.getMaturityRating()))
+          .averageRating(info.getAverageRating())
+          .imageLinks(mapImageLinks(info))
+          .language(info.getLanguage())
+          .build());
+    });
+
+    return convertedBooks;
   }
 
   private static ImagelinksDto mapImageLinks(GoogleBooksResponseDto.VolumeInfo info) {

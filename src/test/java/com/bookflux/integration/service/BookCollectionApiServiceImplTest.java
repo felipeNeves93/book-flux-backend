@@ -1,7 +1,7 @@
 package com.bookflux.integration.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -42,10 +42,10 @@ class BookCollectionApiServiceImplTest {
     when(restTemplate.getForObject(expectedUrl, GoogleBooksResponseDto.class)).thenReturn(
         mockResponse);
 
-    GoogleBooksResponseDto result = service.searchBook(query);
+    var result = service.searchBook(query);
 
-    assertNotNull(result);
-    assertEquals(mockResponse, result);
+    assertTrue(result.isPresent());
+    assertEquals(mockResponse, result.get());
     verify(restTemplate, times(1)).getForObject(expectedUrl, GoogleBooksResponseDto.class);
   }
 }

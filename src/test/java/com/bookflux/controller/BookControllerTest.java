@@ -10,6 +10,7 @@ import com.bookflux.dto.google.ImagelinksDto;
 import com.bookflux.enums.MaturityRating;
 import com.bookflux.integration.service.BookCollectionApiService;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -41,16 +42,18 @@ class BookControllerTest {
     var responseDto = new GoogleBooksResponseDto();
     responseDto.setItems(List.of(item));
 
-    when(bookCollectionApiService.searchBook(query)).thenReturn(responseDto);
+    when(bookCollectionApiService.searchBook(query)).thenReturn(Optional.of(responseDto));
 
     var result = bookController.searchBook(query).getBody();
 
     assertNotNull(result);
-    assertEquals("Harry Potter", result.getTitle());
-    assertEquals(List.of("J.K. Rowling"), result.getAuthors());
-    assertEquals("Bloomsbury", result.getPublisher());
-    assertEquals(MaturityRating.NOT_MATURE, result.getMaturityRating());
-    assertEquals("http://example.com/image.jpg", result.getImageLinks().getThumbnail());
+    assertEquals(1, result.size());
+    var extractedResult = result.get(0);
+    assertEquals("Harry Potter", extractedResult.getTitle());
+    assertEquals(List.of("J.K. Rowling"), extractedResult.getAuthors());
+    assertEquals("Bloomsbury", extractedResult.getPublisher());
+    assertEquals(MaturityRating.NOT_MATURE, extractedResult.getMaturityRating());
+    assertEquals("http://example.com/image.jpg", extractedResult.getImageLinks().getThumbnail());
   }
 
   private static VolumeInfo getVolumeInfo() {

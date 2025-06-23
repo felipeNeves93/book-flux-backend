@@ -1,9 +1,9 @@
 package com.bookflux.controller;
 
-import com.bookflux.dto.google.GoogleBooksResponseDto;
 import com.bookflux.integration.mapper.BookMapper;
 import com.bookflux.integration.service.BookCollectionApiService;
 import com.bookflux.repository.collection.book.BookCollection;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +23,9 @@ public class BookController {
 
   @GetMapping
   @PreAuthorize("isAuthenticated()")
-  public ResponseEntity<BookCollection> searchBook(@RequestParam String query) {
-    GoogleBooksResponseDto response = bookCollectionApiService.searchBook(query);
-    BookCollection book = BookMapper.toDomain(response);
+  public ResponseEntity<List<BookCollection>> searchBook(@RequestParam String query) {
+    var response = bookCollectionApiService.searchBook(query);
+    var book = BookMapper.fromGoogleApiResponse(response.get());
     return ResponseEntity.ok(book);
   }
 }

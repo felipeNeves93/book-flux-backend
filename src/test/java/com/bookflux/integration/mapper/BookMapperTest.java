@@ -26,7 +26,7 @@ class BookMapperTest {
     var responseDto = new GoogleBooksResponseDto();
     responseDto.setItems(List.of(item));
 
-    var result = BookMapper.toDomain(responseDto);
+    var result = BookMapper.fromGoogleApiResponse(responseDto);
 
     assertNotNull(result);
     assertEquals("Clean Code", result.getTitle());
@@ -68,7 +68,7 @@ class BookMapperTest {
     var emptyResponse = new GoogleBooksResponseDto();
     emptyResponse.setItems(List.of());
 
-    var result = BookMapper.toDomain(emptyResponse);
+    var result = BookMapper.fromGoogleApiResponse(emptyResponse);
 
     assertThat(result).isNull();
   }
