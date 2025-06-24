@@ -42,7 +42,7 @@ public class BookCollectionServiceImpl implements BookCollectionService {
     log.debug("Found {} books for title {}", googleBooksApiResponse.get().getItems().size(), title);
     var googleBooks = BookMapper.fromGoogleApiResponse(googleBooksApiResponse.get());
 
-    googleBooks.forEach(bookRepository::save);
+    bookRepository.saveAll(googleBooks);
     log.debug("Saved {} books for title {}", googleBooks.size(), title);
 
     return googleBooks;

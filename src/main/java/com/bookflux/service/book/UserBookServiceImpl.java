@@ -1,6 +1,6 @@
 package com.bookflux.service.book;
 
-import com.bookflux.integration.service.BookCollectionApiService;
+import com.bookflux.exception.ObjectNotFoundException;
 import com.bookflux.integration.service.ReadingSessionService;
 import com.bookflux.repository.UserBookRepository;
 import com.bookflux.repository.collection.book.BookCollection;
@@ -16,9 +16,10 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserBookServiceImpl implements UserBookService {
 
+  private static final String USER_BOOK_CLASS_NAME = "UserBook";
+
   private final UserBookRepository userBookRepository;
   private final ReadingSessionService readingSessionService;
-  private final BookCollectionApiService bookCollectionApiService;
 
   @Override
   public UserBookCollection addBookToCollection(BookCollection bookCollection) {
@@ -48,16 +49,41 @@ public class UserBookServiceImpl implements UserBookService {
 
   @Override
   public void updateFavorite(String userBookId, boolean isFavorite) {
+    var userBook = userBookRepository.findById(userBookId)
+        .orElseThrow(() -> new ObjectNotFoundException(userBookId, USER_BOOK_CLASS_NAME));
 
+    userBook.setFavorite(isFavorite);
+
+    userBookRepository.save(userBook);
   }
 
   @Override
   public void evaluateBook(String userBookId, Integer stars) {
+    var userBook = userBookRepository.findById(userBookId)
+        .orElseThrow(() -> new ObjectNotFoundException(userBookId, USER_BOOK_CLASS_NAME));
+
+    if (this.isValidNumberOfStars(stars)) {
+      userBook.setStars(stars);
+      userBookRepository.save(userBook);
+      return;
+    }
+
+    throw new IllegalStateException("Invalid amount of stars: " + stars);
+
 
   }
 
   @Override
   public void completeRead(String userBookId, boolean isRead) {
+    var userBook = userBookRepository.findById(userBookId)
+        .orElseThrow(() -> new ObjectNotFoundException(userBookId, USER_BOOK_CLASS_NAME));
 
+    userBook.setRead(isRead);
+
+    userBookRepository.save(userBook);
+  }
+
+  private boolean isValidNumberOfStars(Integer stars) {
+    return stars > 0 && stars <= 5;
   }
 }
