@@ -35,7 +35,7 @@ class UserBookRepositoryTest extends MongoRepositoryTestContext {
 
     assertThat(savedUserBook.getBookId()).isEqualTo(expectedBookId);
 
-    savedUserBook = userBookRepository.findById(savedUserBook.getBookId()).orElse(null);
+    savedUserBook = userBookRepository.findById(savedUserBook.getId()).orElse(null);
 
     assertThat(savedUserBook).isNotNull();
     assertThat(savedUserBook.getBookId()).isEqualTo(expectedBookId);
@@ -56,7 +56,7 @@ class UserBookRepositoryTest extends MongoRepositoryTestContext {
     var userBookCollection = this.createUserBookCollection();
     var savedBook = userBookRepository.save(userBookCollection);
 
-    savedBook = userBookRepository.findById(savedBook.getBookId()).orElse(null);
+    savedBook = userBookRepository.findById(savedBook.getId()).orElse(null);
 
     assertThat(savedBook).isNotNull();
 
