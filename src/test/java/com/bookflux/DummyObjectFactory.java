@@ -2,6 +2,8 @@ package com.bookflux;
 
 import com.bookflux.dto.google.GoogleBooksResponseDto;
 import com.bookflux.dto.google.ImagelinksDto;
+import com.bookflux.repository.collection.book.UserBookCollection;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -36,6 +38,22 @@ public final class DummyObjectFactory {
     responseDto.setItems(Collections.singletonList(item));
 
     return responseDto;
+  }
+
+  public static UserBookCollection createDummyUserBookCollection() {
+    return UserBookCollection.builder()
+        .title("The Great Novel")
+        .authors(Arrays.asList("John Doe", "Jane Smith"))
+        .description("A thrilling tale of adventure and discovery.")
+        .comments(Collections.emptyList())
+        .userReviews(Collections.emptyList())
+        .isRead(false)
+        .isFavorite(false)
+        .wantToRead(false)
+        .stars(0)
+        .dateAdded(LocalDateTime.now())
+        .readingSessions(Collections.emptyList())
+        .build();
   }
 
 }
