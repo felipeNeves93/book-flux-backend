@@ -39,4 +39,11 @@ public class ReadingSessionController {
     }
 
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<EndReadingSessionResponse> deleteSpecificSession(@PathVariable String id) {
+        sessionService.deleteSession(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

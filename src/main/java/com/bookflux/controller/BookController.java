@@ -23,4 +23,10 @@ public class BookController {
         BookCollection book = BookMapper.toDomain(response);
         return ResponseEntity.ok(book);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable String id) {
+       bookCollectionApiService.deleteBookAndSessions(id);
+       return ResponseEntity.noContent().build();
+    }
 }

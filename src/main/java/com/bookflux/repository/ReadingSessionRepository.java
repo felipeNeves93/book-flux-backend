@@ -15,4 +15,6 @@ public interface ReadingSessionRepository extends MongoRepository<ReadingSession
     List<ReadingSession> findByBookId(String bookId);
 
     List<ReadingSession> findByUserIdAndBookId(String userId, String bookId);
+
+    Optional<ReadingSession> deleteByBookId(String bookId);
 }

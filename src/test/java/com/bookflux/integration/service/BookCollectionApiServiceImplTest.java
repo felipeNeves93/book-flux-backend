@@ -48,4 +48,6 @@ class BookCollectionApiServiceImplTest {
     assertEquals(mockResponse, result);
     verify(restTemplate, times(1)).getForObject(expectedUrl, GoogleBooksResponseDto.class);
   }
+
+
 }

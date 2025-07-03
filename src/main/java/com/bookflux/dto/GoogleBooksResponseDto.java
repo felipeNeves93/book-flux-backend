@@ -18,6 +18,7 @@ public class GoogleBooksResponseDto {
     @NoArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Item {
+        private String id;
         private VolumeInfo volumeInfo;
     }
 

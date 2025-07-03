@@ -1,9 +1,11 @@
 package com.bookflux.integration.service;
 
+import com.bookflux.config.exception.BookNotFoundException;
 import com.bookflux.config.exception.InvalidReadingSessionException;
 import com.bookflux.dto.EndReadingSessionRequest;
 
 import com.bookflux.dto.StartReadingSessionRequest;
+import com.bookflux.repository.BookRepository;
 import com.bookflux.repository.ReadingSessionRepository;
 import com.bookflux.repository.UserBookRepository;
 import com.bookflux.repository.collection.ReadingSession;
@@ -26,6 +28,9 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
 
     @Autowired
     private UserBookRepository userBookRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     @Override
     @Transactional
@@ -107,6 +112,20 @@ public class ReadingSessionServiceImpl  implements ReadingSessionService  {
 
         return savedSession;
 
+
+    }
+
+
+    @Override
+    public void deleteSession(String sessionId) {
+        ReadingSession session =  readingSessionRepository.findBySessionId(sessionId).orElseThrow(() -> new InvalidReadingSessionException("Reading Sesssion not found"));
+        UserBookCollection  userBook = userBookRepository.findByUserIdAndBookId(session.getUserId(), session.getBookId()).orElseThrow(() -> new InvalidReadingSessionException("User book not found"));
+
+        if (userBook.getReadingSessions() != null) {
+            userBook.getReadingSessions().removeIf(s -> s.getSessionId().equals(sessionId));
+            userBookRepository.save(userBook);
+        }
+        readingSessionRepository.delete(session);
 
     }
 
