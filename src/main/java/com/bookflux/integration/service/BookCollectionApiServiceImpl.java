@@ -4,6 +4,7 @@ import com.bookflux.config.exception.BookNotFoundException;
 import com.bookflux.dto.GoogleBooksResponseDto;
 import com.bookflux.repository.BookRepository;
 import com.bookflux.repository.ReadingSessionRepository;
+import com.bookflux.repository.UserBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class BookCollectionApiServiceImpl implements BookCollectionApiService {
     private final RestTemplate rest;
 
     @Autowired
-    private BookRepository bookRepository;
+    private UserBookRepository userBookRepository;
 
     @Autowired
     ReadingSessionRepository readingSessionRepository;
@@ -36,8 +37,8 @@ public class BookCollectionApiServiceImpl implements BookCollectionApiService {
 
     @Override
     public void deleteBookAndSessions(String id) {
-        bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book with ID " + id + " not found"));
+        userBookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Book with ID " + id + " not found"));
         readingSessionRepository.deleteByBookId(id);
-        bookRepository.deleteById(id);
+        userBookRepository.deleteById(id);
     }
 }
