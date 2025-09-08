@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: local
+  security:
+    user:
+      name: a
+      password: a
+
+logging:
+  level:
+    org.springframework.security: DEBUG

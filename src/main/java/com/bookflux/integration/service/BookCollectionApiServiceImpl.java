@@ -2,7 +2,6 @@ package com.bookflux.integration.service;
 
 import com.bookflux.config.exception.BookNotFoundException;
 import com.bookflux.dto.GoogleBooksResponseDto;
-import com.bookflux.repository.BookRepository;
 import com.bookflux.repository.ReadingSessionRepository;
 import com.bookflux.repository.UserBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +16,18 @@ public class BookCollectionApiServiceImpl implements BookCollectionApiService {
     private String apiUrl;
 
     private final RestTemplate rest;
+    private final UserBookRepository userBookRepository;
+    private  final ReadingSessionRepository readingSessionRepository;
 
-    @Autowired
-    private UserBookRepository userBookRepository;
 
-    @Autowired
-    ReadingSessionRepository readingSessionRepository;
-
-    public BookCollectionApiServiceImpl(RestTemplate restTemplate) {
+    public BookCollectionApiServiceImpl(RestTemplate restTemplate, UserBookRepository userBookRepository, ReadingSessionRepository readingSessionRepository) {
         this.rest = restTemplate;
+
+        this.userBookRepository = userBookRepository;
+        this.readingSessionRepository = readingSessionRepository;
     }
+
+
 
     @Override
     public GoogleBooksResponseDto searchBook(String query) {
